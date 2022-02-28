@@ -1,5 +1,5 @@
 # AMD
-website for Alpha Mecha DAO
+Website for Alpha Mecha DAO
 
 The index.html file holds all of the html and three.js code
   
