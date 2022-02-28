@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreeJS Fun</title>
+    <style>
+        body{
+            background:#000;
+            padding:0px;
+            margin:0px;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js';
+        import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/examples/jsm/loaders/GLTFLoader.js';
+        import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/examples/jsm/controls/OrbitControls.js';
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        const renderer = new THREE.WebGLRenderer();
+        const loader = new GLTFLoader();
+        const controls = new OrbitControls( camera, renderer.domElement );
+
+        const light = new THREE.SpotLight()
+        light.position.set(-20, 15, 120)
+        scene.add(light)
+
+        loader.load('/metaman300.glb',
+
+    	function ( gltf ) {
+
+		    scene.add( gltf.scene );
+
+		    gltf.animations; // Array<THREE.AnimationClip>
+		    gltf.scene; // THREE.Group
+		    gltf.scenes; // Array<THREE.Group>
+		    gltf.cameras; // Array<THREE.Camera>
+		    gltf.asset; // Object
+
+	    },
+
+	    function ( xhr ) {
+	    	console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+	    },
+	    function ( error ) {
+	    	console.log( 'An error happened' );
+	    }
+    );
+
+        scene.background = new THREE.Color('#72c0ff');
+
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        camera.position.set( 10, 0, 140 );
+        document.body.appendChild( renderer.domElement );
+
+        function animate() {
+            requestAnimationFrame( animate );
+            controls.update();
+            renderer.render( scene, camera );
+        }
+        animate();
+
+    </script>
+</body>
+</html>
