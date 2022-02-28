@@ -26,10 +26,6 @@
         const loader = new GLTFLoader();
         const controls = new OrbitControls( camera, renderer.domElement );
 
-//camera settings
-            camera.position.y = 75;
-            camera.position.x = 50;
-
 
 //lights
         const light0 = new THREE.PointLight(0xffffff, 0.5, 0, 2)
@@ -82,9 +78,7 @@
 	    	console.log( 'An error happened' );
 	    }
     );
-
-
-        
+	    
 
 //everything else
         scene.background = new THREE.Color('0xffffff');
@@ -97,7 +91,7 @@
             requestAnimationFrame( animate );
             controls.update();
             renderer.render( scene, camera );
-
+            camera.position.y = 75;
             camera.position.z = 190;
         }
         animate();
